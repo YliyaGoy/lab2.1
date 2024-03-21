@@ -40,9 +40,12 @@ class Room:
         per = self.get_area() / self.get_height()
         print(per)
 
-    def public_method(self): # вызывает приватный метод, который считает периметр
+    def public_method(self): # вызывает приватный метод, который считает удвоенную длинк одного измерения комнаты
         print("Это публичный метод, вызывающий приватный метод:")
         self.__private_method()
+
+    def polimorf_method(self):
+        print(f"Площадь комнаты:{self.get_area()} ")
 
 
 class OneRoomFlat(Room):
@@ -75,9 +78,13 @@ class OneRoomFlat(Room):
         print(f"Этаж: {self.get_floor()}")
         print(f"Площадь кухни: {self.kitchen_area()}")
 
+    def polimorf_method(self):
+        result = self.area + self.kitchen_area
+        print(f"Площадь квартиры:{result}")
+
 
 class PublicOneRoomFlat(OneRoomFlat):
-    def __init__(self,  kitchen_area, floor, city_name,area, height, style): # конструктор
+    def __init__(self, area, height, style, kitchen_area, floor, city_name): # конструктор
         super().__init__(area, height, style, kitchen_area, floor)
         self.city_name = city_name
 
@@ -109,9 +116,13 @@ class PublicOneRoomFlat(OneRoomFlat):
     def set_city_name(self, city_name): # установка значения
         self.city_name = city_name
 
+    def polimorf_method(self):
+        result1 = self.area + self.kitchen_area
+        print(f"Площадь однокомнатной квартиры:{result1}")
+
 
 class _StudioApartment(Room):
-    def __init__(self, kitchen_area, floor, studio_name,area, height, style):
+    def __init__(self, area, height, style, kitchen_area, floor, studio_name):
         # Конструктор класса
         super().__init__(area, height, style)
         self.kitchen_area = kitchen_area
@@ -147,6 +158,10 @@ class _StudioApartment(Room):
         print(f"Название: {self.get_studio_name()}")
         print(f"Этаж: {self.get_floor()}")
         print(f"Площадь кухни: {self.kitchen_area()}")
+
+    def polimorf_method(self):
+        result1 = self.area + self.kitchen_area
+        print(f"Площадь студии:{result1}")
 
 
 def room_menu(room_obj): # меню для работы с комнатой
@@ -270,8 +285,13 @@ def flat_menu(flat_obj): # меню для работы с однокомнат�
 
 def main(): # основной метод вызова
     room1 = Room(50.0, 3.5, 'модерн')
-    flat = PublicOneRoomFlat(room1, 15.0, 2, 'Нью-Йорк')
-    studio1 = _StudioApartment(room1, 12.0, 3, "Арт-студия")
+    flat = PublicOneRoomFlat(room1.get_area(),room1.height,room1.style, 10.0, 2, 'Нью-Йорк')
+    studio1 = _StudioApartment(room1.get_area(),room1.height,room1.style, 5.0, 3, "Арт-студия")
+
+    print("Выполнение полиморфного метода:")
+
+    for rooms in (room1,flat,studio1):
+        rooms.polimorf_method()
 
     while True:
         print("\n-------Главное меню-------")
