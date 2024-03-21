@@ -285,8 +285,8 @@ def flat_menu(flat_obj): # меню для работы с однокомнат�
 
 def main(): # основной метод вызова
     room1 = Room(50.0, 3.5, 'модерн')
-    flat = PublicOneRoomFlat(room1.get_area(),room1.height,room1.style, 10.0, 2, 'Нью-Йорк')
-    studio1 = _StudioApartment(room1.get_area(),room1.height,room1.style, 5.0, 3, "Арт-студия")
+    flat = PublicOneRoomFlat(room1.area,room1.height,room1.style, 10.0, 2, 'Нью-Йорк')
+    studio1 = _StudioApartment(room1.area,room1.height,room1.style, 5.0, 3, "Арт-студия")
 
     print("Выполнение полиморфного метода:")
 
